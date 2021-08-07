@@ -2,10 +2,11 @@
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 150ms ease-in-out;
+  position: relative;
 }
 
 .post:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .post img {
@@ -14,4 +15,21 @@
 
 .post-content {
   padding: 30px;
+}
+
+.post-content h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.post-content span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  font-size: 20px;
+  color: rgb(95, 94, 94);
 }
