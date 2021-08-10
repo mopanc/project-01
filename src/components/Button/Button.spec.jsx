@@ -35,6 +35,11 @@ describe('<Button />', () => {
     const button = screen.getByRole('button', { name: /load more/i });
     expect(button).toBeEnabled();
   });
+
+  it('should mach snapshot', () => {
+    const { container } = render(<Button text="Load More" disabled={false} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
 });
 
 // npm test -- --coverage serve para verificar o coverage dos seus testes, ele 
