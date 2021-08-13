@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { Posts } from '.'
+import { render, screen } from '@testing-library/react';
+import { Posts } from '.';
 
 const props = {
   posts: [
@@ -21,8 +21,8 @@ const props = {
       body: 'Body 3',
       cover: 'img/img3.png',
     },
-  ]
-}
+  ],
+};
 
 describe('<Posts />', () => {
   it('should render posts', () => {
