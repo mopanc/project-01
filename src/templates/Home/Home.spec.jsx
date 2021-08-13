@@ -29,6 +29,13 @@ const handlers = [
           body: 'body3',
           url: 'img3.jpg',
         },
+        {
+          userId: 4,
+          id: 4,
+          title: 'title4',
+          body: 'body4',
+          url: 'img4.jpg',
+        },
       ]),
     );
   }),
@@ -69,7 +76,7 @@ describe('<Home />', () => {
     render(<Home />);
     const noMorePosts = screen.getByText('We do not find posts to your search!');
 
-    expect.assertions(12);
+    expect.assertions(14);
 
     await waitForElementToBeRemoved(noMorePosts);
 
@@ -79,11 +86,13 @@ describe('<Home />', () => {
     expect(screen.getByRole('heading', { name: 'title1' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'title2' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'title3' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'title4' })).not.toBeInTheDocument();
 
     userEvent.type(search, 'title1');
     expect(screen.getByRole('heading', { name: 'title1' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'title2' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'title3' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'title4' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Search Value: title1' })).toBeInTheDocument();
 
     userEvent.clear(search);
@@ -93,5 +102,20 @@ describe('<Home />', () => {
 
     userEvent.type(search, 'post does not exist');
     expect(screen.getByText('We do not find posts to your search!')).toBeInTheDocument();
+  });
+
+  it('should load more posts', async () => {
+    render(<Home />);
+    const noMorePosts = screen.getByText('We do not find posts to your search!');
+
+    //expect.assertions(3);
+
+    await waitForElementToBeRemoved(noMorePosts);
+
+    const button = screen.getByRole('button', { name: /load more posts/i });
+
+    userEvent.click(button);
+    expect(screen.getByRole('heading', { name: 'title4' })).toBeInTheDocument();
+    expect(button).toBeDisabled();
   });
 });
